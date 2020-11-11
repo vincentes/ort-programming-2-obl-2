@@ -5,16 +5,28 @@
  */
 package mavi.ort.edu.uy.ui;
 
+import java.awt.event.KeyEvent;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.UIManager;
+import mavi.ort.edu.uy.models.Main;
+import mavi.ort.edu.uy.models.Technic;
+
 /**
  *
  * @author vicentebermudez
  */
 public class TechnicFrame extends javax.swing.JFrame {
 
+    public static Main m = new Main();
+
     /**
      * Creates new form MainWindow
      */
     public TechnicFrame() {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception ignored) {
+        }
         initComponents();
     }
 
@@ -27,21 +39,174 @@ public class TechnicFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel2 = new javax.swing.JLabel();
+        ciTxt = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        emailTxt = new javax.swing.JTextField();
+        cancelBtn = new javax.swing.JButton();
+        createBtn1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        nameTxt = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel2.setText("Cédula(sin espacios ni guíones)");
+
+        ciTxt.setToolTipText("Introduce la cédula del técnico");
+        ciTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ciTxtActionPerformed(evt);
+            }
+        });
+        ciTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ciTxtKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ciTxtKeyTyped(evt);
+            }
+        });
+
+        jLabel3.setText("Email");
+
+        emailTxt.setToolTipText("Introduce el email del técnico");
+
+        cancelBtn.setText("Cancelar");
+        cancelBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelBtnActionPerformed(evt);
+            }
+        });
+
+        createBtn1.setText("Crear");
+        createBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createBtn1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel4.setText("Alta de Técnico");
+
+        jLabel1.setText("Nombre");
+
+        nameTxt.setToolTipText("Introduce el nombre del técnico");
+        nameTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nameTxtActionPerformed(evt);
+            }
+        });
+        nameTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameTxtKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(emailTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                .addComponent(nameTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(ciTxt, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addContainerGap(74, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(createBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ciTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtn)
+                    .addComponent(createBtn1))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
+
+        ciTxt.getAccessibleContext().setAccessibleDescription("Introduce la cédula del técnico");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ciTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ciTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ciTxtActionPerformed
+
+    private void ciTxtKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ciTxtKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ciTxtKeyPressed
+
+    private void ciTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ciTxtKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+            showMessageDialog(null, "Solo el ingreso de números es permitido");
+        }
+    }//GEN-LAST:event_ciTxtKeyTyped
+
+    private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
+        this.setVisible(false);
+        new InitialFrame().setVisible(true);
+    }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void createBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtn1ActionPerformed
+        // TODO add your handling code here:
+        if (!m.validatePilotExistence(ciTxt.getText())) {
+            Technic technic = new Technic(nameTxt.getText(), ciTxt.getText(), emailTxt.getText());
+            m.addTechnic(technic);
+            nameTxt.setText("");
+            ciTxt.setText("");
+            emailTxt.setText("");
+        } else {
+            showMessageDialog(null, "El técnico con cédula " + ciTxt.getText() + " ya ha sido ingresado.");
+            ciTxt.setText("");
+        }
+    }//GEN-LAST:event_createBtn1ActionPerformed
+
+    private void nameTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nameTxtActionPerformed
+
+    private void nameTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTxtKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+            showMessageDialog(null, "Solo el ingreso de letras es permitido");
+        }
+    }//GEN-LAST:event_nameTxtKeyTyped
 
     /**
      * @param args the command line arguments
@@ -82,5 +247,14 @@ public class TechnicFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cancelBtn;
+    private javax.swing.JTextField ciTxt;
+    private javax.swing.JButton createBtn1;
+    private javax.swing.JTextField emailTxt;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField nameTxt;
     // End of variables declaration//GEN-END:variables
 }
