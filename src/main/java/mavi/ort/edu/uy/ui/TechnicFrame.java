@@ -27,6 +27,7 @@ public class TechnicFrame extends javax.swing.JFrame {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
         }
+        setResizable(false);
         initComponents();
     }
 
@@ -157,6 +158,7 @@ public class TechnicFrame extends javax.swing.JFrame {
         ciTxt.getAccessibleContext().setAccessibleDescription("Introduce la cédula del técnico");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ciTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ciTxtActionPerformed

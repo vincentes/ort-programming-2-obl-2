@@ -5,6 +5,8 @@
  */
 package mavi.ort.edu.uy.ui;
 
+import javax.swing.UIManager;
+
 /**
  *
  * @author vicentebermudez
@@ -15,6 +17,11 @@ public class FinishFrame extends javax.swing.JFrame {
      * Creates new form MainWindow
      */
     public FinishFrame() {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception ignored) {
+        }
+        setResizable(false);
         initComponents();
     }
 
@@ -41,6 +48,7 @@ public class FinishFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

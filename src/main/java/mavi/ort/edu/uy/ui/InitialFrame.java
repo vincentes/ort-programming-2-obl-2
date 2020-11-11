@@ -21,7 +21,7 @@ public class InitialFrame extends javax.swing.JFrame {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
         }
-
+        setResizable(false);
         initComponents();
     }
 
@@ -37,6 +37,11 @@ public class InitialFrame extends javax.swing.JFrame {
         setTechnicBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         setPilotBtn = new javax.swing.JButton();
+        setIndividualFumigationBtn = new javax.swing.JButton();
+        exitBtn = new javax.swing.JButton();
+        setProductBtn1 = new javax.swing.JButton();
+        requestBtn = new javax.swing.JButton();
+        uploadFumigationBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,20 +62,66 @@ public class InitialFrame extends javax.swing.JFrame {
             }
         });
 
+        setIndividualFumigationBtn.setText("Registro de fumigación individual");
+        setIndividualFumigationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setIndividualFumigationBtnActionPerformed(evt);
+            }
+        });
+
+        exitBtn.setText("Salir");
+        exitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exitBtnActionPerformed(evt);
+            }
+        });
+
+        setProductBtn1.setText("Alta producto");
+        setProductBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                setProductBtn1ActionPerformed(evt);
+            }
+        });
+
+        requestBtn.setText("Consulta");
+        requestBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestBtnActionPerformed(evt);
+            }
+        });
+
+        uploadFumigationBtn.setText("Carga de fumigaciones de archivo");
+        uploadFumigationBtn.setToolTipText("");
+        uploadFumigationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadFumigationBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel4)
-                .addContainerGap(96, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(180, 180, 180))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(setTechnicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(setPilotBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(113, 113, 113))
+                    .addComponent(setProductBtn1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(uploadFumigationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(requestBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(149, 149, 149)
+                            .addComponent(jLabel4))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(104, 104, 104)
+                            .addComponent(setIndividualFumigationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(setPilotBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(setTechnicBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,10 +132,21 @@ public class InitialFrame extends javax.swing.JFrame {
                 .addComponent(setPilotBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(setTechnicBtn)
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(setProductBtn1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(setIndividualFumigationBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(requestBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(uploadFumigationBtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(exitBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void setTechnicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setTechnicBtnActionPerformed
@@ -97,6 +159,35 @@ public class InitialFrame extends javax.swing.JFrame {
         this.setVisible(false);
         new PilotFrame().setVisible(true);
     }//GEN-LAST:event_setPilotBtnActionPerformed
+
+    private void setIndividualFumigationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setIndividualFumigationBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new FumigationRegistryFrame().setVisible(true);
+    }//GEN-LAST:event_setIndividualFumigationBtnActionPerformed
+
+    private void exitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitBtnActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_exitBtnActionPerformed
+
+    private void setProductBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setProductBtn1ActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new ProductFrame().setVisible(true);
+    }//GEN-LAST:event_setProductBtn1ActionPerformed
+
+    private void requestBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new QueryFrame().setVisible(true);
+    }//GEN-LAST:event_requestBtnActionPerformed
+
+    private void uploadFumigationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadFumigationBtnActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+        new FumigationLoadFrame().setVisible(true);
+    }//GEN-LAST:event_uploadFumigationBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,8 +204,13 @@ public class InitialFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exitBtn;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton requestBtn;
+    private javax.swing.JButton setIndividualFumigationBtn;
     private javax.swing.JButton setPilotBtn;
+    private javax.swing.JButton setProductBtn1;
     private javax.swing.JButton setTechnicBtn;
+    private javax.swing.JButton uploadFumigationBtn;
     // End of variables declaration//GEN-END:variables
 }

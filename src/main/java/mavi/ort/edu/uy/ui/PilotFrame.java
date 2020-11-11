@@ -27,6 +27,7 @@ public class PilotFrame extends javax.swing.JFrame {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
         }
+        setResizable(false);
         initComponents();
     }
 
@@ -187,6 +188,7 @@ public class PilotFrame extends javax.swing.JFrame {
         yearsOfExperienceTxt.getAccessibleContext().setAccessibleDescription("Introduce los años de experiencia del piloto");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
