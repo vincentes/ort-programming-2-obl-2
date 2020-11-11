@@ -8,7 +8,8 @@ package mavi.ort.edu.uy.ui;
 import java.awt.event.KeyEvent;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.UIManager;
-import mavi.ort.edu.uy.models.Main;
+
+import mavi.ort.edu.uy.models.FumigationSystem;
 import mavi.ort.edu.uy.models.Technic;
 
 /**
@@ -17,7 +18,7 @@ import mavi.ort.edu.uy.models.Technic;
  */
 public class TechnicFrame extends javax.swing.JFrame {
 
-    public static Main m = new Main();
+    private FumigationSystem fumigation;
 
     /**
      * Creates new form MainWindow
@@ -26,9 +27,13 @@ public class TechnicFrame extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
+            // TODO: Add catch. Cannot be left blank.
         }
         setResizable(false);
         initComponents();
+
+        // Data initialization
+        fumigation = FumigationSystem.getInstance();
     }
 
     /**
@@ -111,19 +116,15 @@ public class TechnicFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(emailTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                .addComponent(nameTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ciTxt, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addContainerGap(74, Short.MAX_VALUE))))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(emailTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                        .addComponent(nameTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(ciTxt, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
                 .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,8 +156,6 @@ public class TechnicFrame extends javax.swing.JFrame {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        ciTxt.getAccessibleContext().setAccessibleDescription("Introduce la cédula del técnico");
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -185,14 +184,13 @@ public class TechnicFrame extends javax.swing.JFrame {
 
     private void createBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtn1ActionPerformed
         // TODO add your handling code here:
-        if (!m.validatePilotExistence(ciTxt.getText())) {
-            Technic technic = new Technic(nameTxt.getText(), ciTxt.getText(), emailTxt.getText());
-            m.addTechnic(technic);
+        if (!fumigation.doesTechnicExist(ciTxt.getText())) {
+            fumigation.addTechnic(nameTxt.getText(), ciTxt.getText(), emailTxt.getText());
             nameTxt.setText("");
             ciTxt.setText("");
             emailTxt.setText("");
         } else {
-            showMessageDialog(null, "El técnico con cédula " + ciTxt.getText() + " ya ha sido ingresado.");
+            showMessageDialog(this, "El técnico con cédula " + ciTxt.getText() + " ya ha sido ingresado.");
             ciTxt.setText("");
         }
     }//GEN-LAST:event_createBtn1ActionPerformed

@@ -2,7 +2,7 @@ package mavi.ort.edu.uy.utils;
 
 import java.util.regex.Pattern;
 
-public class Utils {
+public class StringUtils {
     private static final Pattern DOUBLE_PATTERN = Pattern.compile(
             "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
                     "([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|" +

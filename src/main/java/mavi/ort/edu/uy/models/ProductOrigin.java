@@ -10,6 +10,16 @@ package mavi.ort.edu.uy.models;
  * @author vicentebermudez
  */
 public enum ProductOrigin {
-    NATIONAL,
-    IMPORTED
+    NATIONAL("NATIONAL"),
+    IMPORTED("IMPORTED");
+
+    private String name;
+
+    private ProductOrigin(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
 }

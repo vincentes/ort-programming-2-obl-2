@@ -5,11 +5,13 @@
  */
 package mavi.ort.edu.uy.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vicentebermudez
  */
-public class Product {
+public class Product implements Serializable {
     private int id;
     private String name;
     private double cost;
@@ -71,6 +73,9 @@ public class Product {
     public void setOrigin(ProductOrigin origin) {
         this.origin = origin;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return String.format("%d [%s] %s $%4.2f", this.id, this.origin, this.name, this.cost);
+    }
 }

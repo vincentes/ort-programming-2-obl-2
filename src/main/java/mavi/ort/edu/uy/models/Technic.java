@@ -14,8 +14,7 @@ public class Technic {
     private String name;
     private String ci;
     private String email;
-    
-    
+
     public Technic(String name, String ci, String email) {
         this.setName(name);
         this.setCi(ci);

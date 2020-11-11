@@ -8,7 +8,8 @@ package mavi.ort.edu.uy.ui;
 import java.awt.event.KeyEvent;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.UIManager;
-import mavi.ort.edu.uy.models.Main;
+
+import mavi.ort.edu.uy.models.FumigationSystem;
 import mavi.ort.edu.uy.models.Pilot;
 
 /**
@@ -20,7 +21,7 @@ public class PilotFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
-    public static Main m = new Main();
+    public static FumigationSystem fumigation;
 
     public PilotFrame() {
         try {
@@ -29,6 +30,9 @@ public class PilotFrame extends javax.swing.JFrame {
         }
         setResizable(false);
         initComponents();
+
+        // Data init
+        fumigation = FumigationSystem.getInstance();
     }
 
     /**
@@ -181,11 +185,7 @@ public class PilotFrame extends javax.swing.JFrame {
         );
 
         nameTxt.getAccessibleContext().setAccessibleName("");
-        nameTxt.getAccessibleContext().setAccessibleDescription("Introduce el nombre del piloto");
         ciTxt.getAccessibleContext().setAccessibleName("");
-        ciTxt.getAccessibleContext().setAccessibleDescription("Introduce la cédula del piloto");
-        addressTxt.getAccessibleContext().setAccessibleDescription("Introduce la dirección del piloto");
-        yearsOfExperienceTxt.getAccessibleContext().setAccessibleDescription("Introduce los años de experiencia del piloto");
 
         pack();
         setLocationRelativeTo(null);
@@ -202,15 +202,14 @@ public class PilotFrame extends javax.swing.JFrame {
             showMessageDialog(null, "Debe de ingresar una cantidad de años de experiencia válidos");
             yearsOfExperienceTxt.setText("");
         } else {
-            if (!m.validatePilotExistence(ciTxt.getText())) {
-                Pilot pilot = new Pilot(nameTxt.getText(), ciTxt.getText(), addressTxt.getText(), Integer.parseInt(yearsOfExperienceTxt.getText()));
-                m.addPilot(pilot);
+            if (!fumigation.doesPilotExist(ciTxt.getText())) {
+                fumigation.addPilot(nameTxt.getText(), ciTxt.getText(), addressTxt.getText(), Integer.parseInt(yearsOfExperienceTxt.getText()));
                 nameTxt.setText("");
                 ciTxt.setText("");
                 addressTxt.setText("");
                 yearsOfExperienceTxt.setText("");
             } else {
-                showMessageDialog(null, "El piloto con cédula " + ciTxt.getText() + " ya ha sido ingresado.");
+                showMessageDialog(this, "El piloto con cédula " + ciTxt.getText() + " ya ha sido ingresado.");
                 ciTxt.setText("");
             }
         }

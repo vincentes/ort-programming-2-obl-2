@@ -115,7 +115,6 @@
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Introduce el nombre del piloto"/>
       </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nameTxtActionPerformed"/>
@@ -133,7 +132,6 @@
       </Properties>
       <AccessibilityProperties>
         <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Introduce la c&#xe9;dula del piloto"/>
       </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ciTxtActionPerformed"/>
@@ -155,9 +153,6 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Introduce la direcci&#xf3;n del piloto"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Introduce la direcci&#xf3;n del piloto"/>
-      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JButton" name="createBtn1">
       <Properties>
@@ -171,9 +166,6 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Introduce los a&#xf1;os de experiencia del piloto"/>
       </Properties>
-      <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Introduce los a&#xf1;os de experiencia del piloto"/>
-      </AccessibilityProperties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="yearsOfExperienceTxtActionPerformed"/>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="yearsOfExperienceTxtKeyPressed"/>

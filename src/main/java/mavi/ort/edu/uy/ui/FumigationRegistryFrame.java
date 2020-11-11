@@ -5,6 +5,8 @@
  */
 package mavi.ort.edu.uy.ui;
 
+import mavi.ort.edu.uy.models.FumigationSystem;
+
 import javax.swing.UIManager;
 
 /**
@@ -12,6 +14,8 @@ import javax.swing.UIManager;
  * @author vicentebermudez
  */
 public class FumigationRegistryFrame extends javax.swing.JFrame {
+
+    FumigationSystem fumigation;
 
     /**
      * Creates new form MainWindow
@@ -23,6 +27,8 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
         }
         setResizable(false);
         initComponents();
+        fumigation = FumigationSystem.getInstance();
+        
     }
 
     /**

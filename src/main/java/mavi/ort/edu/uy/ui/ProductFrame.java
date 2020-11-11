@@ -6,15 +6,19 @@
 package mavi.ort.edu.uy.ui;
 
 import javax.swing.UIManager;
-import mavi.ort.edu.uy.models.Fumigation;
-import mavi.ort.edu.uy.models.Product;
+import mavi.ort.edu.uy.models.FumigationSystem;
 import mavi.ort.edu.uy.models.ProductOrigin;
+import mavi.ort.edu.uy.utils.StringUtils;
+
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
  * @author vicentebermudez
  */
 public class ProductFrame extends javax.swing.JFrame {
+
+    FumigationSystem fumigation;
 
     /**
      * Creates new form MainWindow
@@ -26,6 +30,8 @@ public class ProductFrame extends javax.swing.JFrame {
         }
         setResizable(false);
         initComponents();
+        fumigation = FumigationSystem.getInstance();
+        productsList.setListData(fumigation.getProductsAsStringArray());
     }
 
     /**
@@ -50,6 +56,8 @@ public class ProductFrame extends javax.swing.JFrame {
         createBtn = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cancelBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        productsList = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +93,13 @@ public class ProductFrame extends javax.swing.JFrame {
             }
         });
 
+        productsList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(productsList);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,8 +109,8 @@ public class ProductFrame extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -105,14 +120,20 @@ public class ProductFrame extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel1)
-                            .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(costTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17))
+                        .addGap(185, 185, 185))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(createBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nameTxt, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(createBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +158,9 @@ public class ProductFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(createBtn)
                     .addComponent(cancelBtn))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,7 +169,21 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         String name = nameTxt.getText();
-        double cost = Double.valueOf(costTxt.getText());
+        if(name.isEmpty()) {
+            showMessageDialog(this, "Debe de ingresar un nombre no vacío.");
+            return;
+        }
+
+        String costTxtVal = costTxt.getText();
+        double cost;
+
+        if(StringUtils.isDouble(costTxtVal)) {
+            cost = Double.valueOf(costTxtVal);
+        } else {
+            showMessageDialog(this, "Debe de ingresar un costo decimal no vacío.");
+            return;
+        }
+
         boolean isImported = importedRd.isSelected();
         ProductOrigin origin;
         if(isImported) {
@@ -154,10 +191,8 @@ public class ProductFrame extends javax.swing.JFrame {
         } else {
             origin = ProductOrigin.NATIONAL;
         }
-        
-        
-        // TODO: Add 
-        Fumigation.getInstance().addProduct(name, cost, origin);
+
+        FumigationSystem.getInstance().addProduct(name, cost, origin);
     }//GEN-LAST:event_createBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -220,8 +255,10 @@ public class ProductFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameTxt;
     private javax.swing.JRadioButton nationalRd;
+    private javax.swing.JList<String> productsList;
     // End of variables declaration//GEN-END:variables
 
 }
