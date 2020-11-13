@@ -10,7 +10,6 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.UIManager;
 
 import mavi.ort.edu.uy.models.FumigationSystem;
-import mavi.ort.edu.uy.models.Pilot;
 
 /**
  *
@@ -33,6 +32,7 @@ public class PilotFrame extends javax.swing.JFrame {
 
         // Data init
         fumigation = FumigationSystem.getInstance();
+        pilotsList.setListData(fumigation.getPilotsAsStringArray());
     }
 
     /**
@@ -55,6 +55,9 @@ public class PilotFrame extends javax.swing.JFrame {
         addressTxt = new javax.swing.JTextField();
         createBtn1 = new javax.swing.JButton();
         yearsOfExperienceTxt = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        pilotsList = new javax.swing.JList<>();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,6 +130,16 @@ public class PilotFrame extends javax.swing.JFrame {
             }
         });
 
+        pilotsList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(pilotsList);
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel6.setText("Pilotos existentes");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -140,10 +153,10 @@ public class PilotFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(yearsOfExperienceTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                        .addGap(69, 69, 69))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
@@ -152,36 +165,47 @@ public class PilotFrame extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(addressTxt, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                                 .addComponent(nameTxt, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ciTxt, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(yearsOfExperienceTxt))
-                        .addGap(69, 69, 69))))
+                                .addComponent(ciTxt, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addGap(97, 97, 97))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ciTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addressTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ciTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addressTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(yearsOfExperienceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelBtn)
                     .addComponent(createBtn1))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         nameTxt.getAccessibleContext().setAccessibleName("");
@@ -198,18 +222,39 @@ public class PilotFrame extends javax.swing.JFrame {
 
     private void createBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtn1ActionPerformed
         // TODO add your handling code here:
-        if (Integer.parseInt(yearsOfExperienceTxt.getText()) > 60 || Integer.parseInt(yearsOfExperienceTxt.getText()) < 0) {
+        String ci = ciTxt.getText();
+        if(ci.isEmpty()) {
+            showMessageDialog(this, "Debe de ingresar una cédula no vacía.");
+            return;
+        }
+        String name = nameTxt.getText();
+        if(name.isEmpty()) {
+            showMessageDialog(this, "Debe de ingresar un nombre no vacío.");
+            return;
+        }
+        String address = addressTxt.getText();
+        if(address.isEmpty()) {
+            showMessageDialog(this, "Debe de ingresar una dirección no vacía.");
+            return;
+        }
+        int yearsOfExperience = Integer.parseInt(yearsOfExperienceTxt.getText());
+        if(yearsOfExperienceTxt.getText().isEmpty()) {
+            showMessageDialog(this, "Debe de ingresar un valor en años de experiencia diferente a vacío.");
+            return;
+        }
+        if (yearsOfExperience > 60 || yearsOfExperience < 0) {
             showMessageDialog(null, "Debe de ingresar una cantidad de años de experiencia válidos");
             yearsOfExperienceTxt.setText("");
         } else {
-            if (!fumigation.doesPilotExist(ciTxt.getText())) {
-                fumigation.addPilot(nameTxt.getText(), ciTxt.getText(), addressTxt.getText(), Integer.parseInt(yearsOfExperienceTxt.getText()));
+            if (!fumigation.doesPilotExist(ci)) {
+                fumigation.addPilot(name, ci, address, yearsOfExperience);
                 nameTxt.setText("");
                 ciTxt.setText("");
                 addressTxt.setText("");
                 yearsOfExperienceTxt.setText("");
+                pilotsList.setListData(fumigation.getPilotsAsStringArray());
             } else {
-                showMessageDialog(this, "El piloto con cédula " + ciTxt.getText() + " ya ha sido ingresado.");
+                showMessageDialog(this, "El piloto con cédula " + ci + " ya ha sido ingresado.");
                 ciTxt.setText("");
             }
         }
@@ -311,7 +356,10 @@ public class PilotFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameTxt;
+    private javax.swing.JList<String> pilotsList;
     private javax.swing.JTextField yearsOfExperienceTxt;
     // End of variables declaration//GEN-END:variables
 }

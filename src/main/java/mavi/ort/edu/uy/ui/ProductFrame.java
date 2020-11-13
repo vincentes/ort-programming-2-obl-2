@@ -193,6 +193,7 @@ public class ProductFrame extends javax.swing.JFrame {
         }
 
         FumigationSystem.getInstance().addProduct(name, cost, origin);
+        productsList.setListData(fumigation.getProductsAsStringArray());
     }//GEN-LAST:event_createBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed

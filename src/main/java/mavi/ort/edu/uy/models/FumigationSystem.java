@@ -7,6 +7,8 @@ package mavi.ort.edu.uy.models;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,13 +21,17 @@ public class FumigationSystem {
     private static FumigationSystem fumigation = null;
     private List<Pilot> pilots;
     private List<Technic> technics;
-    private List<Product> products = new ArrayList<Product>();
+    private List<Product> products;
     private int lastIdProduct = 0;
+    
     
     // private constructor restricted to this class itself 
     private FumigationSystem() 
     { 
         load();
+        pilots = new ArrayList<Pilot>();
+        technics = new ArrayList<Technic>();
+        products = new ArrayList<Product>();
     } 
   
     // static method to create instance of Singleton class 
@@ -54,6 +60,19 @@ public class FumigationSystem {
     public void addPilot(String name, String ci, String address, int yearsOfExperience) {
         pilots.add(new Pilot(name, ci, address, yearsOfExperience));
         persist();
+    }
+    
+     public String[] getPilotsAsStringArray() {
+         Collections.sort(pilots, new Comparator<Pilot>(){
+             public int compare(Pilot p1, Pilot p2){
+                 return Integer.valueOf(p2.getYearsOfExperience()).compareTo(p1.getYearsOfExperience());
+             }
+         });
+        String[] result = new String[pilots.size()];
+        for(int i = 0; i < result.length; i++) {
+            result[i] = pilots.get(i).toString();
+        }
+        return result;
     }
 
 
@@ -123,4 +142,5 @@ public class FumigationSystem {
             Logger.getLogger(FumigationSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }
