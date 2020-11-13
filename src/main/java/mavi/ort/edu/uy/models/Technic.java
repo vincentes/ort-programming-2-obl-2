@@ -5,12 +5,12 @@
  */
 package mavi.ort.edu.uy.models;
 
-
 /**
  *
  * @author vicentebermudez
  */
 public class Technic {
+
     private String name;
     private String ci;
     private String email;
@@ -63,7 +63,9 @@ public class Technic {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return String.format(this.ci + " " + this.name);
+    }
 
-
-  
 }

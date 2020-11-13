@@ -92,6 +92,19 @@ public class FumigationSystem {
         persist();
     }
 
+    public String[] getTechnicsAsStringArray() {
+        Collections.sort(technics, new Comparator<Technic>() {
+            public int compare(Technic t1, Technic t2) {
+                return t1.getName().compareTo(t2.getName());
+            }
+        });
+        String[] result = new String[technics.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = technics.get(i).toString();
+        }
+        return result;
+    }
+    
     public boolean doesTechnicExist(String ci) {
         boolean isTechnicPresent = false;
         for (Technic t : technics) {
