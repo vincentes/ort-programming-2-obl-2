@@ -224,28 +224,31 @@ public class PilotFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String ci = ciTxt.getText();
         if(ci.isEmpty()) {
-            showMessageDialog(this, "Debe de ingresar una cédula no vacía.");
+            showMessageDialog(this, "Debe de ingresar una cédula no vacía");
             return;
         }
         String name = nameTxt.getText();
         if(name.isEmpty()) {
-            showMessageDialog(this, "Debe de ingresar un nombre no vacío.");
+            showMessageDialog(this, "Debe de ingresar un nombre no vacío");
             return;
         }
         String address = addressTxt.getText();
         if(address.isEmpty()) {
-            showMessageDialog(this, "Debe de ingresar una dirección no vacía.");
+            showMessageDialog(this, "Debe de ingresar una dirección no vacía");
             return;
         }
         int yearsOfExperience = Integer.parseInt(yearsOfExperienceTxt.getText());
         if(yearsOfExperienceTxt.getText().isEmpty()) {
-            showMessageDialog(this, "Debe de ingresar un valor en años de experiencia diferente a vacío.");
+            showMessageDialog(this, "Debe de ingresar un valor en años de experiencia diferente a vacío");
             return;
         }
         if (yearsOfExperience > 60 || yearsOfExperience < 0) {
             showMessageDialog(null, "Debe de ingresar una cantidad de años de experiencia válidos");
             yearsOfExperienceTxt.setText("");
-        } else {
+        } else if(!fumigation.validateCi(ci)){
+            showMessageDialog(null, "Debe de ingresar una cédula válida");
+        } 
+        else {
             if (!fumigation.doesPilotExist(ci)) {
                 fumigation.addPilot(name, ci, address, yearsOfExperience);
                 nameTxt.setText("");
@@ -254,7 +257,7 @@ public class PilotFrame extends javax.swing.JFrame {
                 yearsOfExperienceTxt.setText("");
                 pilotsList.setListData(fumigation.getPilotsAsStringArray());
             } else {
-                showMessageDialog(this, "El piloto con cédula " + ci + " ya ha sido ingresado.");
+                showMessageDialog(this, "El piloto con cédula " + ci + " ya ha sido ingresado");
                 ciTxt.setText("");
             }
         }

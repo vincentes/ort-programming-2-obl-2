@@ -18,31 +18,29 @@ import java.util.logging.Logger;
  * @author vicentebermudez
  */
 public class FumigationSystem {
+
     private static FumigationSystem fumigation = null;
     private List<Pilot> pilots;
     private List<Technic> technics;
     private List<Product> products;
     private int lastIdProduct = 0;
-    
-    
+
     // private constructor restricted to this class itself 
-    private FumigationSystem() 
-    { 
+    private FumigationSystem() {
         load();
         pilots = new ArrayList<Pilot>();
         technics = new ArrayList<Technic>();
         products = new ArrayList<Product>();
-    } 
-  
+    }
+
     // static method to create instance of Singleton class 
-    public static FumigationSystem getInstance() 
-    { 
+    public static FumigationSystem getInstance() {
         if (fumigation == null) {
-            fumigation = new FumigationSystem(); 
+            fumigation = new FumigationSystem();
         }
-  
-        return fumigation; 
-    } 
+
+        return fumigation;
+    }
 
     public void addProduct(String name, double cost, ProductOrigin origin) {
         products.add(new Product(lastIdProduct++, name, cost, origin));
@@ -51,7 +49,7 @@ public class FumigationSystem {
 
     public String[] getProductsAsStringArray() {
         String[] result = new String[products.size()];
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             result[i] = products.get(i).toString();
         }
         return result;
@@ -61,20 +59,19 @@ public class FumigationSystem {
         pilots.add(new Pilot(name, ci, address, yearsOfExperience));
         persist();
     }
-    
-     public String[] getPilotsAsStringArray() {
-         Collections.sort(pilots, new Comparator<Pilot>(){
-             public int compare(Pilot p1, Pilot p2){
-                 return Integer.valueOf(p2.getYearsOfExperience()).compareTo(p1.getYearsOfExperience());
-             }
-         });
+
+    public String[] getPilotsAsStringArray() {
+        Collections.sort(pilots, new Comparator<Pilot>() {
+            public int compare(Pilot p1, Pilot p2) {
+                return Integer.valueOf(p2.getYearsOfExperience()).compareTo(p1.getYearsOfExperience());
+            }
+        });
         String[] result = new String[pilots.size()];
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             result[i] = pilots.get(i).toString();
         }
         return result;
     }
-
 
     public boolean doesPilotExist(String ci) {
         boolean isPilotPresent = false;
@@ -120,7 +117,7 @@ public class FumigationSystem {
             pilots = (List<Pilot>) in.readObject();
             // Technics
             technics = (List<Technic>) in.readObject();
-        } catch(ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(FumigationSystem.class.getName()).log(Level.INFO, "Could not find the data file. Will continue as this may be the first time running the program.");
         } catch (IOException ex) {
             Logger.getLogger(FumigationSystem.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,5 +139,42 @@ public class FumigationSystem {
             Logger.getLogger(FumigationSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public boolean validateCi(String ci) {
+        if (ci.length() != 7 && ci.length() != 8) {
+            return false;
+        } else {
+            try {
+                Integer.parseInt(ci);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
+
+        int digVerificador = Integer.parseInt((ci.charAt(ci.length() - 1)) + "");
+        int[] factores;
+        if (ci.length() == 7) { // CI viejas
+            factores = new int[]{9, 8, 7, 6, 3, 4};
+        } else {
+            factores = new int[]{2, 9, 8, 7, 6, 3, 4};
+        }
+
+        int suma = 0;
+        int digito = 0;
+        for (int i = 0; i < factores.length; i++) {
+            digito = Integer.parseInt(ci.charAt(i) + "");
+            suma += digito * factores[i];
+        }
+
+        int resto = suma % 10;
+        int checkdigit = 10 - resto;
+
+        if (checkdigit
+                == 10) {
+            return (digVerificador == 0);
+        } else {
+            return (checkdigit == digVerificador);
+        }
+
+    }
 }
