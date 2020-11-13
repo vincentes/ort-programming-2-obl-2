@@ -5,20 +5,17 @@
  */
 package mavi.ort.edu.uy.models;
 
-
 /**
  *
  * @author vicentebermudez
  */
 public class Pilot {
-    
-    
+
     private String name;
     private String ci;
     private String address;
     private int yearsOfExperience;
-    
-    
+
     public Pilot(String name, String ci, String address, int yearsOfExperience) {
         this.setName(name);
         this.setCi(ci);
@@ -81,12 +78,10 @@ public class Pilot {
     public void setYearsOfExperience(int yearsOfExperience) {
         this.yearsOfExperience = yearsOfExperience;
     }
-    
-    
-  
+
     @Override
     public String toString() {
         return String.format(this.ci + " " + this.name + " " + this.yearsOfExperience);
     }
-  
+
 }

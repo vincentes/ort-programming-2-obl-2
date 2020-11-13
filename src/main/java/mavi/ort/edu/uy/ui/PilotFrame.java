@@ -223,32 +223,31 @@ public class PilotFrame extends javax.swing.JFrame {
     private void createBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtn1ActionPerformed
         // TODO add your handling code here:
         String ci = ciTxt.getText();
-        if(ci.isEmpty()) {
+        if (ci.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar una cédula no vacía");
             return;
         }
         String name = nameTxt.getText();
-        if(name.isEmpty()) {
+        if (name.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar un nombre no vacío");
             return;
         }
         String address = addressTxt.getText();
-        if(address.isEmpty()) {
+        if (address.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar una dirección no vacía");
             return;
         }
         int yearsOfExperience = Integer.parseInt(yearsOfExperienceTxt.getText());
-        if(yearsOfExperienceTxt.getText().isEmpty()) {
+        if (yearsOfExperienceTxt.getText().isEmpty()) {
             showMessageDialog(this, "Debe de ingresar un valor en años de experiencia diferente a vacío");
             return;
         }
         if (yearsOfExperience > 60 || yearsOfExperience < 0) {
             showMessageDialog(null, "Debe de ingresar una cantidad de años de experiencia válidos");
             yearsOfExperienceTxt.setText("");
-        } else if(!fumigation.validateCi(ci)){
+        } else if (!fumigation.isValidCi(ci)) {
             showMessageDialog(null, "Debe de ingresar una cédula válida");
-        } 
-        else {
+        } else {
             if (!fumigation.doesPilotExist(ci)) {
                 fumigation.addPilot(name, ci, address, yearsOfExperience);
                 nameTxt.setText("");

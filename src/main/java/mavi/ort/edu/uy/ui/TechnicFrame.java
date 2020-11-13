@@ -211,34 +211,37 @@ public class TechnicFrame extends javax.swing.JFrame {
 
     private void createBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtn1ActionPerformed
         // TODO add your handling code here:
-         String name = nameTxt.getText();
-        if(name.isEmpty()) {
+        String name = nameTxt.getText();
+        if (name.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar un nombre no vacío");
             return;
         }
         String ci = ciTxt.getText();
-        if(ci.isEmpty()) {
+        if (ci.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar una cédula no vacía");
             return;
         }
         String email = emailTxt.getText();
-        if(email.isEmpty()) {
+        if (email.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar un email no vacío");
             return;
         }
-     
-        if (!fumigation.doesTechnicExist(ciTxt.getText())) {
-            fumigation.addTechnic(nameTxt.getText(), ciTxt.getText(), emailTxt.getText());
-            technicsList.setListData(fumigation.getTechnicsAsStringArray());
-            nameTxt.setText("");
-            ciTxt.setText("");
-            emailTxt.setText("");
-        }else if(!fumigation.validateCi(ci)){
+
+        if (!fumigation.isValidCi(ci)) {
             showMessageDialog(null, "Debe de ingresar una cédula válida");
-        }  
-        else {
-            showMessageDialog(this, "El técnico con cédula " + ciTxt.getText() + " ya ha sido ingresado");
-            ciTxt.setText("");
+        } else if (!fumigation.isValidEmailAddress(email)) {
+            showMessageDialog(null, "Debe de ingresar un email válido");
+        } else {
+            if (!fumigation.doesTechnicExist(ciTxt.getText())) {
+                fumigation.addTechnic(nameTxt.getText(), ciTxt.getText(), emailTxt.getText());
+                technicsList.setListData(fumigation.getTechnicsAsStringArray());
+                nameTxt.setText("");
+                ciTxt.setText("");
+                emailTxt.setText("");
+            } else {
+                showMessageDialog(this, "El técnico con cédula " + ciTxt.getText() + " ya ha sido ingresado");
+                ciTxt.setText("");
+            }
         }
     }//GEN-LAST:event_createBtn1ActionPerformed
 
