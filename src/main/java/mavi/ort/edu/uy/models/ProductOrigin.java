@@ -5,11 +5,13 @@
  */
 package mavi.ort.edu.uy.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vicentebermudez
  */
-public enum ProductOrigin {
+public enum ProductOrigin implements Serializable {
     NATIONAL("NATIONAL"),
     IMPORTED("IMPORTED");
 

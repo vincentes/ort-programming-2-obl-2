@@ -13,4 +13,17 @@ public class StringUtils {
     public static boolean isDouble(String str) {
         return DOUBLE_PATTERN.matcher(str).matches();
     }
+    
+    public static boolean isPositiveNumber(String str) {
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public static int alphabeticPosition(String letter) {
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(letter.toUpperCase());
+    }
 }

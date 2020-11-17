@@ -34,7 +34,7 @@ public class TechnicFrame extends javax.swing.JFrame {
 
         // Data initialization
         fumigation = FumigationSystem.getInstance();
-        technicsList.setListData(fumigation.getPilotsAsStringArray());
+        technicsList.setListData(fumigation.getTechnicsAsStringArray());
     }
 
     /**
@@ -177,9 +177,9 @@ public class TechnicFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cancelBtn)
-                    .addComponent(createBtn1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(createBtn1)
+                    .addComponent(cancelBtn))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 

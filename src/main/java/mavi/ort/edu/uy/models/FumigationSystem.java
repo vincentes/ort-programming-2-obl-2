@@ -23,14 +23,13 @@ public class FumigationSystem {
     private List<Pilot> pilots;
     private List<Technic> technics;
     private List<Product> products;
+    private List<Fumigation> fumigations;
     private int lastIdProduct = 0;
 
     // private constructor restricted to this class itself 
     private FumigationSystem() {
         load();
-        pilots = new ArrayList<Pilot>();
-        technics = new ArrayList<Technic>();
-        products = new ArrayList<Product>();
+        persist();
     }
 
     // static method to create instance of Singleton class 
@@ -41,7 +40,7 @@ public class FumigationSystem {
 
         return fumigation;
     }
-
+    
     public void addProduct(String name, double cost, ProductOrigin origin) {
         products.add(new Product(lastIdProduct++, name, cost, origin));
         persist();
@@ -83,8 +82,25 @@ public class FumigationSystem {
         return isPilotPresent;
     }
 
-    public List<Technic> getTechnicsList() {
+    public List<Technic> getTechnics() {
         return technics;
+    }
+    
+    public List<Product> getProducts() {
+        return products;
+    }
+    
+    public List<Pilot> getPilots() {
+        return pilots;
+    }
+    
+    public List<Fumigation> getFumigations() {
+        return fumigations;
+    }
+    
+    public void addFumigation(Pilot pilot, Technic technic, Product product, int day, String zone) {
+        fumigations.add(new Fumigation(pilot, technic, product, day, zone));
+        persist();
     }
 
     public void addTechnic(String name, String ci, String email) {
@@ -118,7 +134,25 @@ public class FumigationSystem {
     public List<Pilot> getPilotsList() {
         return pilots;
     }
+    
+    public void ifListsNullInitialize() {
+        if(pilots == null) {
+            pilots = new ArrayList<Pilot>();
+        }
 
+        if(technics == null) {
+            technics = new ArrayList<Technic>();
+        }
+
+        if(products == null) {
+            products = new ArrayList<Product>();
+        }
+
+        if(fumigations == null) {
+            fumigations = new ArrayList<Fumigation>();
+        }
+    }
+    
     public void load() {
         ObjectInputStream in = null;
         try {
@@ -130,11 +164,17 @@ public class FumigationSystem {
             pilots = (List<Pilot>) in.readObject();
             // Technics
             technics = (List<Technic>) in.readObject();
+            // Fumigation
+            fumigations = (List<Fumigation>) in.readObject();
+            
+            ifListsNullInitialize();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FumigationSystem.class.getName()).log(Level.INFO, "Could not find the data file. Will continue as this may be the first time running the program.");
         } catch (IOException ex) {
-            Logger.getLogger(FumigationSystem.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FumigationSystem.class.getName()).log(Level.SEVERE, "IO Exception", ex);
         }
+        
+        ifListsNullInitialize();
     }
 
     public void persist() {
@@ -147,6 +187,9 @@ public class FumigationSystem {
             out.writeObject(pilots);
             // Technics
             out.writeObject(technics);
+            // Fumigations
+            out.writeObject(fumigations);
+            // End
             out.close();
         } catch (IOException ex) {
             Logger.getLogger(FumigationSystem.class.getName()).log(Level.SEVERE, null, ex);

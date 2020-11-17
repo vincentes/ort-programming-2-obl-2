@@ -5,11 +5,13 @@
  */
 package mavi.ort.edu.uy.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vicentebermudez
  */
-public class Technic {
+public class Technic implements Serializable {
 
     private String name;
     private String ci;
