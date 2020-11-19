@@ -237,19 +237,19 @@ public class PilotFrame extends javax.swing.JFrame {
             showMessageDialog(this, "Debe de ingresar una dirección no vacía");
             return;
         }
-        int yearsOfExperience = Integer.parseInt(yearsOfExperienceTxt.getText());
-        if (yearsOfExperienceTxt.getText().isEmpty()) {
+        String yearsOfExperience = yearsOfExperienceTxt.getText();
+        if (yearsOfExperience.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar un valor en años de experiencia diferente a vacío");
             return;
         }
-        if (yearsOfExperience > 60 || yearsOfExperience < 0) {
+        if (Integer.parseInt(yearsOfExperience) > 60 || Integer.parseInt(yearsOfExperience) < 0) {
             showMessageDialog(null, "Debe de ingresar una cantidad de años de experiencia válidos");
             yearsOfExperienceTxt.setText("");
         } else if (!fumigation.isValidCi(ci)) {
             showMessageDialog(null, "Debe de ingresar una cédula válida");
         } else {
             if (!fumigation.doesPilotExist(ci)) {
-                fumigation.addPilot(name, ci, address, yearsOfExperience);
+                fumigation.addPilot(name, ci, address, Integer.parseInt(yearsOfExperience));
                 nameTxt.setText("");
                 ciTxt.setText("");
                 addressTxt.setText("");
