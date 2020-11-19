@@ -289,7 +289,7 @@ public class PilotFrame extends javax.swing.JFrame {
     private void nameTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTxtKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == KeyEvent.VK_SPACE)) {
             evt.consume();
             showMessageDialog(null, "Solo el ingreso de letras es permitido");
         }
