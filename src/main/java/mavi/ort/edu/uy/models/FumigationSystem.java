@@ -40,12 +40,12 @@ public class FumigationSystem {
 
         return fumigation;
     }
-    
+
     public void addProduct(String name, double cost, ProductOrigin origin) {
         products.add(new Product(lastIdProduct++, name, cost, origin));
         persist();
     }
-    
+
     public boolean doesProductExist(String name) {
         boolean isTechnicPresent = false;
         for (Product p : products) {
@@ -54,6 +54,36 @@ public class FumigationSystem {
             }
         }
         return isTechnicPresent;
+    }
+
+    public Product getProductByName(String name) {
+        Product product = new Product();
+        for (Product p : products) {
+            if (p.getName().equals(name)) {
+                product = p;
+            }
+        }
+        return product;
+    }
+
+    public Pilot getPilotByCi(String ci) {
+        Pilot pilot = new Pilot();
+        for (Pilot p : pilots) {
+            if (p.getCi().equals(ci)) {
+                pilot = p;
+            }
+        }
+        return pilot;
+    }
+
+    public Technic getTechnicByCi(String ci) {
+        Technic technic = new Technic();
+        for (Technic p : technics) {
+            if (p.getCi().equals(ci)) {
+                technic = p;
+            }
+        }
+        return technic;
     }
 
     public String[] getProductsAsStringArray() {
@@ -91,23 +121,23 @@ public class FumigationSystem {
         }
         return isPilotPresent;
     }
-    
+
     public List<Technic> getTechnics() {
         return technics;
     }
-    
+
     public List<Product> getProducts() {
         return products;
     }
-    
+
     public List<Pilot> getPilots() {
         return pilots;
     }
-    
+
     public List<Fumigation> getFumigations() {
         return fumigations;
     }
-    
+
     public void addFumigation(Pilot pilot, Technic technic, Product product, int day, String zone) {
         fumigations.add(new Fumigation(pilot, technic, product, day, zone));
         persist();
@@ -144,25 +174,25 @@ public class FumigationSystem {
     public List<Pilot> getPilotsList() {
         return pilots;
     }
-    
+
     public void ifListsNullInitialize() {
-        if(pilots == null) {
+        if (pilots == null) {
             pilots = new ArrayList<Pilot>();
         }
 
-        if(technics == null) {
+        if (technics == null) {
             technics = new ArrayList<Technic>();
         }
 
-        if(products == null) {
+        if (products == null) {
             products = new ArrayList<Product>();
         }
 
-        if(fumigations == null) {
+        if (fumigations == null) {
             fumigations = new ArrayList<Fumigation>();
         }
     }
-    
+
     public void load() {
         ObjectInputStream in = null;
         try {
@@ -176,14 +206,14 @@ public class FumigationSystem {
             technics = (List<Technic>) in.readObject();
             // Fumigation
             fumigations = (List<Fumigation>) in.readObject();
-            
+
             ifListsNullInitialize();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(FumigationSystem.class.getName()).log(Level.INFO, "Could not find the data file. Will continue as this may be the first time running the program.");
         } catch (IOException ex) {
             Logger.getLogger(FumigationSystem.class.getName()).log(Level.SEVERE, "IO Exception", ex);
         }
-        
+
         ifListsNullInitialize();
     }
 

@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Vicente Bermúdez, Matías Sallé
  */
 public class Product implements Serializable {
+
     private int id;
     private String name;
     private double cost;

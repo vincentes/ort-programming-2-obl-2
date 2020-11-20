@@ -23,6 +23,9 @@ public class Technic implements Serializable {
         this.setEmail(email);
     }
 
+    public Technic() {
+    }
+
     /**
      * @return the name
      */

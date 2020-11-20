@@ -13,6 +13,7 @@ import mavi.ort.edu.uy.utils.StringUtils;
  * @author Vicente Bermúdez, Matías Sallé
  */
 public class Fumigation implements Serializable {
+
     private Pilot pilot;
     private Technic technic;
     private Product product;
@@ -20,7 +21,7 @@ public class Fumigation implements Serializable {
     private String zone;
 
     public Fumigation() {
-        
+
     }
 
     public Fumigation(Pilot pilot, Technic technic, Product product, int day, String zone) {
@@ -30,35 +31,35 @@ public class Fumigation implements Serializable {
         this.day = day;
         this.zone = zone;
     }
-    
+
     public int getColumnA() {
         return Integer.parseInt(zone.split("-")[1].trim()) - 1;
     }
-    
+
     public String getRowA() {
         return zone.split("-")[0];
     }
-    
+
     public int getColumnB() {
         return Integer.parseInt(zone.split("-")[3].trim()) - 1;
-    }    
-    
+    }
+
     public String getRowB() {
         return zone.split("-")[2];
     }
-    
+
     public int getRowAbsDifference() {
         return Math.abs(getRowDifference());
     }
-    
+
     public int getColumnAbsDifference() {
         return Math.abs(getColumnDifference());
     }
-    
+
     public int getColumnDifference() {
         return getColumnB() - getColumnA();
     }
-    
+
     public int getRowDifference() {
         return StringUtils.alphabeticPosition(getRowB()) - StringUtils.alphabeticPosition(getRowA());
     }
@@ -102,28 +103,26 @@ public class Fumigation implements Serializable {
     public void setZone(String zone) {
         this.zone = zone;
     }
-    
-    
-    
+
     public static boolean isValidZone(String zone) {
-        if(zone == null) {
+        if (zone == null) {
             return false;
         }
-        
+
         String[] tokens = zone.split("-");
-        if(tokens.length != 4) {
+        if (tokens.length != 4) {
             return false;
         }
-        
+
         String rowA = tokens[0];
         String colA = tokens[1];
         String rowB = tokens[2];
         String colB = tokens[3];
-        
-        if(rowA.length() > 1 || rowB.length() > 1 || colA.length() > 2 || colB.length() > 2) {
+
+        if (rowA.length() > 1 || rowB.length() > 1 || colA.length() > 2 || colB.length() > 2) {
             return false;
         }
-        
+
         return true;
     }
 }

@@ -197,7 +197,7 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
         String zone = zoneTxt.getText().toUpperCase();
         String dayStr = dayTxt.getText().trim();
         if (!StringUtils.isPositiveNumber(dayStr)) {
-            showMessageDialog(this, "Debe de ingresar un día con números postivos, del 1 al 30.");
+            showMessageDialog(this, "Debe de ingresar un día con números postivos, del 1 al 31.");
             return;
         }
         int day = Integer.parseInt(dayStr);
@@ -216,7 +216,7 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
 
     private void dayTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayTxtKeyTyped
         // TODO add your handling code here:
-          // TODO add your handling code here:
+        // TODO add your handling code here:
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
             evt.consume();

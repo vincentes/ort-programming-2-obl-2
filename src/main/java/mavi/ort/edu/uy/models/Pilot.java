@@ -25,6 +25,10 @@ public class Pilot implements Serializable {
         this.setYearsOfExperience(yearsOfExperience);
     }
 
+    public Pilot() {
+
+    }
+
     /**
      * @return the name
      */

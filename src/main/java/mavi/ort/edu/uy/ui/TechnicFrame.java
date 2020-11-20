@@ -10,7 +10,6 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.UIManager;
 
 import mavi.ort.edu.uy.models.FumigationSystem;
-import static mavi.ort.edu.uy.ui.PilotFrame.fumigation;
 
 /**
  *

@@ -15,8 +15,13 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.UIManager;
+import mavi.ort.edu.uy.models.Fumigation;
 import mavi.ort.edu.uy.models.FumigationSystem;
+import mavi.ort.edu.uy.models.Pilot;
+import mavi.ort.edu.uy.models.Product;
+import mavi.ort.edu.uy.models.Technic;
 import static mavi.ort.edu.uy.ui.PilotFrame.fumigation;
+import mavi.ort.edu.uy.utils.StringUtils;
 
 /**
  *
@@ -193,6 +198,9 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
         String strCurrentLine;
         try {
             int contador = 0;
+            Pilot pilot = new Pilot();
+            Technic technic = new Technic();
+            Product product = new Product();
             String pilotCi = "";
             String technicCi = "";
             String productName = "";
@@ -203,6 +211,9 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
                         pilotCi = strCurrentLine.split("#")[0];
                         technicCi = strCurrentLine.split("#")[1];
                         productName = strCurrentLine.split("#")[2];
+                        pilot = fumigation.getPilotByCi(pilotCi);
+                        technic = fumigation.getTechnicByCi(technicCi);
+                        product = fumigation.getProductByName(productName);
                     } catch (Exception e) {
                         showMessageDialog(this, "El archivo ingresado no cumple con el formato");
                         fileUploadMessage.setText("No se ha ingresado ningún archivo...");
@@ -222,7 +233,14 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
                         fileUploadMessage.setText("No se ha ingresado ningún archivo...");
                         return;
                     }
+
                 }
+                String zone = strCurrentLine.toUpperCase();
+                if (!Fumigation.isValidZone(zone)) {
+                    System.out.println("to add: log on ERRORES.txt");
+                    return;
+                }
+                fumigation.addFumigation(pilot, technic, product, Integer.parseInt(day), zone);
                 contador++;
             }
         } catch (IOException ex) {
