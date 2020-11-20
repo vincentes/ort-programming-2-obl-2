@@ -37,6 +37,7 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
         } catch (Exception ignored) {
             System.out.println("'Windows look and feel' no se pudo cargar exitosamente");
         }
+        fumigation = FumigationSystem.getInstance();
         setResizable(false);
         initComponents();
         fileUploadMessage.setText("No se ha ingresado ningún archivo...");

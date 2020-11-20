@@ -202,6 +202,11 @@ public class ProductFrame extends javax.swing.JFrame {
 
         FumigationSystem.getInstance().addProduct(name, cost, origin);
         productsList.setListData(fumigation.getProductsAsStringArray());
+        nameTxt.setText("");
+        costTxt.setText("");
+        importedRd.setSelected(true);
+        nationalRd.setSelected(false);
+        showMessageDialog(this, "Producto ingresado correctamente");
     }//GEN-LAST:event_createBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
@@ -214,7 +219,7 @@ public class ProductFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
           // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == KeyEvent.VK_COMMA)) {
             evt.consume();
             showMessageDialog(null, "Solo el ingreso de números es permitido");
         }
