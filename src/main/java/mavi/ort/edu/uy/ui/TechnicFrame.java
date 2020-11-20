@@ -27,7 +27,7 @@ public class TechnicFrame extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
-            System.out.println("Could not set Windows LookAndFeel.");
+            System.out.println("'Windows look and feel' no se pudo cargar exitosamente");
         }
         setResizable(false);
         initComponents();
@@ -234,6 +234,7 @@ public class TechnicFrame extends javax.swing.JFrame {
         } else {
             if (!fumigation.doesTechnicExist(ciTxt.getText())) {
                 fumigation.addTechnic(nameTxt.getText(), ciTxt.getText(), emailTxt.getText());
+                showMessageDialog(this, "Técnico creado exitosamente");
                 technicsList.setListData(fumigation.getTechnicsAsStringArray());
                 nameTxt.setText("");
                 ciTxt.setText("");
@@ -252,7 +253,7 @@ public class TechnicFrame extends javax.swing.JFrame {
     private void nameTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTxtKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == KeyEvent.VK_SPACE)) {
             evt.consume();
             showMessageDialog(null, "Solo el ingreso de letras es permitido");
         }

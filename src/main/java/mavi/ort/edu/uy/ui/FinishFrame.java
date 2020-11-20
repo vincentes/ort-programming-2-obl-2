@@ -20,6 +20,7 @@ public class FinishFrame extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
+            System.out.println("'Windows look and feel' no se pudo cargar exitosamente");
         }
         setResizable(false);
         initComponents();

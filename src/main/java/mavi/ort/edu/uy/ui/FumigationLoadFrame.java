@@ -5,7 +5,18 @@
  */
 package mavi.ort.edu.uy.ui;
 
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.UIManager;
+import mavi.ort.edu.uy.models.FumigationSystem;
+import static mavi.ort.edu.uy.ui.PilotFrame.fumigation;
 
 /**
  *
@@ -16,13 +27,21 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
+    public static FumigationSystem fumigation;
+    private final JFileChooser openFileChooser;
+    private BufferedReader originalFile;
+
     public FumigationLoadFrame() {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
+            System.out.println("'Windows look and feel' no se pudo cargar exitosamente");
         }
         setResizable(false);
         initComponents();
+        fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+        openFileChooser = new JFileChooser();
+        openFileChooser.setCurrentDirectory(new File("c:\\temp"));
     }
 
     /**
@@ -35,6 +54,13 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         cancelBtn = new javax.swing.JButton();
+        dayTxt = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        confirmBtn = new javax.swing.JButton();
+        fileBtn = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        fileUploadMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,20 +71,90 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
             }
         });
 
+        dayTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dayTxtActionPerformed(evt);
+            }
+        });
+        dayTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dayTxtKeyTyped(evt);
+            }
+        });
+
+        jLabel6.setText("Día");
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setText("Registro de fumigación mediante archivo");
+
+        confirmBtn.setText("Confirmar");
+        confirmBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmBtnActionPerformed(evt);
+            }
+        });
+
+        fileBtn.setText("Seleccionar archivo");
+        fileBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Subir archivo");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(231, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(cancelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(confirmBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(fileUploadMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(15, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(dayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(fileBtn)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
-                .addComponent(cancelBtn)
+                .addGap(19, 19, 19)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dayTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fileBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fileUploadMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cancelBtn)
+                    .addComponent(confirmBtn))
                 .addContainerGap())
         );
 
@@ -71,6 +167,93 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
         this.setVisible(false);
         new InitialFrame().setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void dayTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dayTxtActionPerformed
+
+    private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
+        // TODO add your handling code here:
+        String day = dayTxt.getText();
+        if (day.isEmpty()) {
+            showMessageDialog(this, "Debe de ingresar un día");
+            return;
+        }
+        if (Integer.parseInt(day) < 0 || Integer.parseInt(day) > 31) {
+            showMessageDialog(this, "Debe de ingresar un día entre 1-31");
+            return;
+        }
+
+        if (!fileUploadMessage.getText().equals("El archivo se cargó exitosamente!")) {
+            showMessageDialog(this, "Debe de ingresar un archivo");
+            return;
+        }
+
+        String strCurrentLine;
+        try {
+            int contador = 0;
+            String pilotCi = "";
+            String technicCi = "";
+            String productName = "";
+            while ((strCurrentLine = originalFile.readLine()) != null) {
+                // this validates that the first line meets all the requirements to keep reading the file
+                if (contador == 0) {
+                    try {
+                        pilotCi = strCurrentLine.split("#")[0];
+                        technicCi = strCurrentLine.split("#")[1];
+                        productName = strCurrentLine.split("#")[2];
+                    } catch (Exception e) {
+                        showMessageDialog(this, "El archivo ingresado no cumple con el formato");
+                        fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                    }
+                    if (!fumigation.doesPilotExist(pilotCi)) {
+                        showMessageDialog(this, "El piloto ingresado en el archivo no se encuentra en el sistema");
+                        fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                        return;
+                    }
+                    if (!fumigation.doesTechnicExist(technicCi)) {
+                        showMessageDialog(this, "El técnico ingresado en el archivo no se encuentra en el sistema");
+                        fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                        return;
+                    }
+                    if (!fumigation.doesProductExist(productName)) {
+                        showMessageDialog(this, "El producto ingresado en el archivo no se encuentra en el sistema");
+                        fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                        return;
+                    }
+                }
+                contador++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FumigationLoadFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_confirmBtnActionPerformed
+
+    private void fileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileBtnActionPerformed
+        int returnValue = openFileChooser.showOpenDialog(this);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            try {
+                originalFile = new BufferedReader(new FileReader(openFileChooser.getSelectedFile()));
+                fileUploadMessage.setText("El archivo se cargó exitosamente!");
+            } catch (IOException ioe) {
+                fileUploadMessage.setText("Falló al abrir el archivo...");
+            }
+        } else {
+            fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+        }
+    }//GEN-LAST:event_fileBtnActionPerformed
+
+    private void dayTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayTxtKeyTyped
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+            showMessageDialog(null, "Solo el ingreso de números es permitido");
+        }
+
+    }//GEN-LAST:event_dayTxtKeyTyped
 
     /**
      * @param args the command line arguments
@@ -140,5 +323,12 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelBtn;
+    private javax.swing.JButton confirmBtn;
+    private javax.swing.JTextField dayTxt;
+    private javax.swing.JButton fileBtn;
+    private javax.swing.JLabel fileUploadMessage;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }

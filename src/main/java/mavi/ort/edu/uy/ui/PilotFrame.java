@@ -26,6 +26,7 @@ public class PilotFrame extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
+            System.out.println("'Windows look and feel' no se pudo cargar exitosamente");
         }
         setResizable(false);
         initComponents();
@@ -237,23 +238,24 @@ public class PilotFrame extends javax.swing.JFrame {
             showMessageDialog(this, "Debe de ingresar una dirección no vacía");
             return;
         }
-        int yearsOfExperience = Integer.parseInt(yearsOfExperienceTxt.getText());
-        if (yearsOfExperienceTxt.getText().isEmpty()) {
+        String yearsOfExperience = yearsOfExperienceTxt.getText();
+        if (yearsOfExperience.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar un valor en años de experiencia diferente a vacío");
             return;
         }
-        if (yearsOfExperience > 60 || yearsOfExperience < 0) {
+        if (Integer.parseInt(yearsOfExperience) > 60 || Integer.parseInt(yearsOfExperience) < 0) {
             showMessageDialog(null, "Debe de ingresar una cantidad de años de experiencia válidos");
             yearsOfExperienceTxt.setText("");
         } else if (!fumigation.isValidCi(ci)) {
             showMessageDialog(null, "Debe de ingresar una cédula válida");
         } else {
             if (!fumigation.doesPilotExist(ci)) {
-                fumigation.addPilot(name, ci, address, yearsOfExperience);
+                fumigation.addPilot(name, ci, address, Integer.parseInt(yearsOfExperience));
                 nameTxt.setText("");
                 ciTxt.setText("");
                 addressTxt.setText("");
                 yearsOfExperienceTxt.setText("");
+                showMessageDialog(this, "Piloto creado exitosamente");
                 pilotsList.setListData(fumigation.getPilotsAsStringArray());
             } else {
                 showMessageDialog(this, "El piloto con cédula " + ci + " ya ha sido ingresado");
@@ -289,7 +291,7 @@ public class PilotFrame extends javax.swing.JFrame {
     private void nameTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameTxtKeyTyped
         // TODO add your handling code here:
         char c = evt.getKeyChar();
-        if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+        if (!(Character.isLetter(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE || c == KeyEvent.VK_SPACE)) {
             evt.consume();
             showMessageDialog(null, "Solo el ingreso de letras es permitido");
         }
