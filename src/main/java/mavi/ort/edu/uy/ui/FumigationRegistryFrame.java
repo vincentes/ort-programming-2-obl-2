@@ -6,9 +6,7 @@
 package mavi.ort.edu.uy.ui;
 
 import java.awt.event.KeyEvent;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
 import static javax.swing.JOptionPane.showMessageDialog;
 import mavi.ort.edu.uy.models.FumigationSystem;
 

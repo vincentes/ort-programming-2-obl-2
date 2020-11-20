@@ -20,8 +20,6 @@ import mavi.ort.edu.uy.models.FumigationSystem;
 import mavi.ort.edu.uy.models.Pilot;
 import mavi.ort.edu.uy.models.Product;
 import mavi.ort.edu.uy.models.Technic;
-import static mavi.ort.edu.uy.ui.PilotFrame.fumigation;
-import mavi.ort.edu.uy.utils.StringUtils;
 
 /**
  *
@@ -216,31 +214,37 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
                         product = fumigation.getProductByName(productName);
                     } catch (Exception e) {
                         showMessageDialog(this, "El archivo ingresado no cumple con el formato");
+                        strCurrentLine = null;
                         fileUploadMessage.setText("No se ha ingresado ningún archivo...");
                     }
                     if (!fumigation.doesPilotExist(pilotCi)) {
                         showMessageDialog(this, "El piloto ingresado en el archivo no se encuentra en el sistema");
                         fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                        strCurrentLine = null;
                         return;
                     }
                     if (!fumigation.doesTechnicExist(technicCi)) {
                         showMessageDialog(this, "El técnico ingresado en el archivo no se encuentra en el sistema");
                         fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                        strCurrentLine = null;
                         return;
                     }
                     if (!fumigation.doesProductExist(productName)) {
                         showMessageDialog(this, "El producto ingresado en el archivo no se encuentra en el sistema");
                         fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                        strCurrentLine = null;
                         return;
                     }
 
+                } else {
+                    String zone = strCurrentLine.toUpperCase();
+                    if (!Fumigation.isValidZone(zone)) {
+                        System.out.println("to add: log on ERRORES.txt");
+                        return;
+                    }
+                    fumigation.addFumigation(pilot, technic, product, Integer.parseInt(day), zone);
                 }
-                String zone = strCurrentLine.toUpperCase();
-                if (!Fumigation.isValidZone(zone)) {
-                    System.out.println("to add: log on ERRORES.txt");
-                    return;
-                }
-                fumigation.addFumigation(pilot, technic, product, Integer.parseInt(day), zone);
+
                 contador++;
             }
         } catch (IOException ex) {
