@@ -247,6 +247,7 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
 
                 contador++;
             }
+            originalFile.close();
         } catch (IOException ex) {
             Logger.getLogger(FumigationLoadFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
