@@ -14,7 +14,7 @@ import static mavi.ort.edu.uy.ui.PilotFrame.fumigation;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class TechnicFrame extends javax.swing.JFrame {
 

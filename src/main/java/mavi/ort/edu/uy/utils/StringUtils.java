@@ -2,6 +2,10 @@ package mavi.ort.edu.uy.utils;
 
 import java.util.regex.Pattern;
 
+/**
+ *
+ * @author Vicente Bermúdez, Matías Sallé
+ */
 public class StringUtils {
 
     private static final Pattern DOUBLE_PATTERN = Pattern.compile(

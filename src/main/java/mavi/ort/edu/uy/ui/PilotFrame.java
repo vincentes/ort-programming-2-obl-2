@@ -13,7 +13,7 @@ import mavi.ort.edu.uy.models.FumigationSystem;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class PilotFrame extends javax.swing.JFrame {
 

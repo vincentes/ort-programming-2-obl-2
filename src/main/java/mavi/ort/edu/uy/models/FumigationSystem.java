@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class FumigationSystem {
 
@@ -91,7 +91,7 @@ public class FumigationSystem {
         }
         return isPilotPresent;
     }
-
+    
     public List<Technic> getTechnics() {
         return technics;
     }
