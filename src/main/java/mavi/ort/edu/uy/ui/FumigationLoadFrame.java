@@ -10,9 +10,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.UIManager;
+import mavi.ort.edu.uy.models.FumigationSystem;
+import static mavi.ort.edu.uy.ui.PilotFrame.fumigation;
 
 /**
  *
@@ -23,6 +27,7 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
+    public static FumigationSystem fumigation;
     private final JFileChooser openFileChooser;
     private BufferedReader originalFile;
 
@@ -171,23 +176,69 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         String day = dayTxt.getText();
         if (day.isEmpty()) {
-            showMessageDialog(this, "Debe de ingresar un día no vacío");
+            showMessageDialog(this, "Debe de ingresar un día");
             return;
         }
         if (Integer.parseInt(day) < 0 || Integer.parseInt(day) > 31) {
             showMessageDialog(this, "Debe de ingresar un día entre 1-31");
             return;
         }
+
+        if (!fileUploadMessage.getText().equals("El archivo se cargó exitosamente!")) {
+            showMessageDialog(this, "Debe de ingresar un archivo");
+            return;
+        }
+
+        String strCurrentLine;
+        try {
+            int contador = 0;
+            String pilotCi = "";
+            String technicCi = "";
+            String productName = "";
+            while ((strCurrentLine = originalFile.readLine()) != null) {
+                // this validates that the first line meets all the requirements to keep reading the file
+                if (contador == 0) {
+                    try {
+                        pilotCi = strCurrentLine.split("#")[0];
+                        technicCi = strCurrentLine.split("#")[1];
+                        productName = strCurrentLine.split("#")[2];
+
+                        if (!fumigation.doesPilotExist(pilotCi)) {
+                            showMessageDialog(this, "El piloto ingresado en el archivo no se encuentra en el sistema");
+                            fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                            return;
+                        }
+                        if (!fumigation.doesTechnicExist(technicCi)) {
+                            showMessageDialog(this, "El técnico ingresado en el archivo no se encuentra en el sistema");
+                            fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                            return;
+                        }
+                        if (!fumigation.doesProductExist(productName)) {
+                            showMessageDialog(this, "El producto ingresado en el archivo no se encuentra en el sistema");
+                            fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                            return;
+                        }
+                        System.out.println(pilotCi + technicCi + productName);
+                    } catch (Exception e) {
+                        showMessageDialog(this, "El archivo ingresado no cumple con el formato");
+                        fileUploadMessage.setText("No se ha ingresado ningún archivo...");
+                    }
+                }
+                contador++;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FumigationLoadFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void fileBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileBtnActionPerformed
         int returnValue = openFileChooser.showOpenDialog(this);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
-            try{
+            try {
                 originalFile = new BufferedReader(new FileReader(openFileChooser.getSelectedFile()));
                 fileUploadMessage.setText("El archivo se cargó exitosamente!");
-                System.out.println(openFileChooser.getSelectedFile());
-            }catch(IOException ioe){
+            } catch (IOException ioe) {
                 fileUploadMessage.setText("Falló al abrir el archivo...");
             }
         } else {

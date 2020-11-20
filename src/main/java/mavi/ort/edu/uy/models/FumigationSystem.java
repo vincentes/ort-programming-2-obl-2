@@ -45,6 +45,16 @@ public class FumigationSystem {
         products.add(new Product(lastIdProduct++, name, cost, origin));
         persist();
     }
+    
+    public boolean doesProductExist(String name) {
+        boolean isTechnicPresent = false;
+        for (Product p : products) {
+            if (p.getName().equals(name)) {
+                isTechnicPresent = true;
+            }
+        }
+        return isTechnicPresent;
+    }
 
     public String[] getProductsAsStringArray() {
         String[] result = new String[products.size()];
