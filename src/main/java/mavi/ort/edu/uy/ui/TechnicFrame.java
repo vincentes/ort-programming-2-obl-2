@@ -14,7 +14,7 @@ import static mavi.ort.edu.uy.ui.PilotFrame.fumigation;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class TechnicFrame extends javax.swing.JFrame {
 
@@ -27,7 +27,7 @@ public class TechnicFrame extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
-            // TODO: Add catch. Cannot be left blank.
+            System.out.println("Could not set Windows LookAndFeel.");
         }
         setResizable(false);
         initComponents();

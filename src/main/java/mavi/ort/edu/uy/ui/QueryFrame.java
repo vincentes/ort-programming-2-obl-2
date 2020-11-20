@@ -35,7 +35,7 @@ import mavi.ort.edu.uy.utils.StringUtils;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class QueryFrame extends javax.swing.JFrame {
 

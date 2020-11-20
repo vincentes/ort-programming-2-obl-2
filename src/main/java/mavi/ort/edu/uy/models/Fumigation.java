@@ -10,7 +10,7 @@ import mavi.ort.edu.uy.utils.StringUtils;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class Fumigation implements Serializable {
     private Pilot pilot;
@@ -20,6 +20,7 @@ public class Fumigation implements Serializable {
     private String zone;
 
     public Fumigation() {
+        
     }
 
     public Fumigation(Pilot pilot, Technic technic, Product product, int day, String zone) {
@@ -114,14 +115,15 @@ public class Fumigation implements Serializable {
             return false;
         }
         
-        String colA = tokens[0];
-        String rowA = tokens[1];
-        String colB = tokens[2];
-        String rowB = tokens[3];
+        String rowA = tokens[0];
+        String colA = tokens[1];
+        String rowB = tokens[2];
+        String colB = tokens[3];
         
         if(rowA.length() > 1 || rowB.length() > 1 || colA.length() > 2 || colB.length() > 2) {
             return false;
         }
+        
         return true;
     }
 }

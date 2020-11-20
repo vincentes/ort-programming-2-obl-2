@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class FumigationSystem {
 
@@ -80,6 +80,16 @@ public class FumigationSystem {
             }
         }
         return isPilotPresent;
+    }
+    
+    public boolean doesProductExist(String name) {
+        boolean isProductPresent = false;
+        for (Product p : products) {
+            if (p.getName().equals(name)) {
+                isProductPresent = true;
+            }
+        }
+        return isProductPresent;
     }
 
     public List<Technic> getTechnics() {

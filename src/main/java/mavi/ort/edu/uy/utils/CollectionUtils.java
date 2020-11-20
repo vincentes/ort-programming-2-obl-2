@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class CollectionUtils {
     public static boolean contains(final int[] arr, final int key) {

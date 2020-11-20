@@ -7,7 +7,7 @@ package mavi.ort.edu.uy.models;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class FumigationCell {
     public int quantity;

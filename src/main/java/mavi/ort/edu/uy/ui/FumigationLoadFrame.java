@@ -9,7 +9,7 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class FumigationLoadFrame extends javax.swing.JFrame {
 

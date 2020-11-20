@@ -14,7 +14,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public class ProductFrame extends javax.swing.JFrame {
 
@@ -174,6 +174,11 @@ public class ProductFrame extends javax.swing.JFrame {
             return;
         }
 
+        if(FumigationSystem.getInstance().doesProductExist(name)) {
+            showMessageDialog(this, "El producto ingresado ya existe.");
+            return;
+        }
+        
         String costTxtVal = costTxt.getText();
         double cost;
 

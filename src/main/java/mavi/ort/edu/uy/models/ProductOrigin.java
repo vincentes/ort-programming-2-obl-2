@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author vicentebermudez
+ * @author Vicente Bermúdez, Matías Sallé
  */
 public enum ProductOrigin implements Serializable {
     NATIONAL("NATIONAL"),
