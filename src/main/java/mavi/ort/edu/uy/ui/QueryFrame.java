@@ -39,69 +39,73 @@ import mavi.ort.edu.uy.utils.StringUtils;
  */
 public class QueryFrame extends javax.swing.JFrame {
 
-    
     private FumigationCell[][] cells = new FumigationCell[15][50];
     private FumigationSystem fumigationSystem;
     private DefaultComboBoxModel productsListModel;
     private Product selectedProduct;
     private int selectedDay = -1;
-    
+
     /**
      * Creates new form QueryFrame
      */
     public QueryFrame() {
-        fumigationSystem = FumigationSystem.getInstance(); 
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (Exception ignored) {
+            System.out.println("'Windows look and feel' no se pudo cargar exitosamente");
+        }
+        fumigationSystem = FumigationSystem.getInstance();
         List<Product> productsTmp = new ArrayList<Product>();
         productsTmp.add(null);
         productsTmp.addAll(fumigationSystem.getProducts());
         productsListModel = new DefaultComboBoxModel(productsTmp.toArray(Product[]::new));
-        
+
         loadFumigations();
         setResizable(false);
-        
+
         initComponents();
         JTableHeader tableHeader = table.getTableHeader();
         DefaultTableCellRenderer tableHeaderRenderer = new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value,
                     boolean isSelected, boolean hasFocus, int row, int column) {
-                
+
                 JLabel l = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
                 l.setBackground(Color.PINK);
                 l.setSize(50, 50);
                 l.setAlignmentX(JLabel.CENTER_ALIGNMENT);
                 l.setFocusable(false);
-                
+
                 return l;
             }
         };
         tableHeaderRenderer.setHorizontalAlignment(JLabel.CENTER);
         tableHeader.setDefaultRenderer(tableHeaderRenderer);
-        
+
         tableHeader.setResizingAllowed(false);
         tableHeader.setReorderingAllowed(false);
-        
+
         String[] columns = new String[50];
-        for(int i = 0; i < columns.length; i++) {
+        for (int i = 0; i < columns.length; i++) {
             columns[i] = String.valueOf(i + 1);
         }
-        
+
         String[][] defaultRows = new String[15][50];
-        for(int i = 0; i < defaultRows.length; i++) {
+        for (int i = 0; i < defaultRows.length; i++) {
             String row[] = new String[defaultRows[i].length];
-            for(int j = 0; j < defaultRows[i].length; j++) {
+            for (int j = 0; j < defaultRows[i].length; j++) {
                 defaultRows[i][j] = "0";
             }
         }
-        
+
         table.setModel(new javax.swing.table.DefaultTableModel(
-            defaultRows,
-            columns
+                defaultRows,
+                columns
         ));
-        
+
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        
+
         // Center cells
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer() {
             @Override
@@ -113,7 +117,7 @@ public class QueryFrame extends javax.swing.JFrame {
                 label.setSize(50, 50);
                 label.setFocusable(false);
                 label.setForeground(Color.white);
-                
+
                 int quantity = cells[row][column].getQuantity();
                 int brightnessGain = Math.round((255 / 25) * quantity);
                 Color color = new Color(brightnessGain, 0, 0);
@@ -124,14 +128,14 @@ public class QueryFrame extends javax.swing.JFrame {
         };
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         centerRenderer.setFocusable(false);
-        for(int i = 0; i < columns.length; i++) {
+        for (int i = 0; i < columns.length; i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        
+
         table.setFocusable(false);
         table.setRowSelectionAllowed(false);
         table.setDefaultEditor(Object.class, null);
-        
+
         productsList.setSelectedIndex(-1);
     }
 
@@ -374,12 +378,12 @@ public class QueryFrame extends javax.swing.JFrame {
     private void filterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterActionPerformed
         selectedProduct = (Product) productsList.getSelectedItem();
         String dayTxt = dayField.getText();
-        if(dayTxt.isEmpty()) {
+        if (dayTxt.isEmpty()) {
             selectedDay = -1;
         } else {
-            selectedDay = Integer.parseInt(dayTxt);        
+            selectedDay = Integer.parseInt(dayTxt);
         }
-        
+
         loadFumigations();
     }//GEN-LAST:event_filterActionPerformed
 
@@ -479,25 +483,24 @@ public class QueryFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void loadFumigations() {
-        for(int i = 0; i < cells.length; i++) {
-            for(int j = 0; j < cells[i].length; j++) {
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[i].length; j++) {
                 cells[i][j] = new FumigationCell();
             }
         }
 
-                    
         List<Fumigation> fumigations = fumigationSystem.getFumigations();
-        for(Fumigation fumigation : fumigations) {
+        for (Fumigation fumigation : fumigations) {
             Product product = fumigation.getProduct();
-            if(selectedProduct != null && product.getId() != selectedProduct.getId()) {
+            if (selectedProduct != null && product.getId() != selectedProduct.getId()) {
                 continue;
             }
-            
+
             int fumigationDay = fumigation.getDay();
-            if(selectedDay != -1 && selectedDay != fumigationDay) {
+            if (selectedDay != -1 && selectedDay != fumigationDay) {
                 continue;
             }
-            
+
             int rowA = StringUtils.alphabeticPosition(fumigation.getRowA());
             int rowB = StringUtils.alphabeticPosition(fumigation.getRowB());
             int colA = fumigation.getColumnA();
@@ -508,42 +511,42 @@ public class QueryFrame extends javax.swing.JFrame {
             int[] rowsAffected = new int[rowDifference + 1];
 
             colsAffected[0] = colA;
-            if(fumigation.getColumnDifference() > 0) {
-                for(int k = 0; k <= colDifference; k++) {
+            if (fumigation.getColumnDifference() > 0) {
+                for (int k = 0; k <= colDifference; k++) {
                     colsAffected[k] = colA + k;
                 }
-            } else if(fumigation.getColumnDifference() < 0) {
-                for(int k = 0; k <= colDifference; k++) {
+            } else if (fumigation.getColumnDifference() < 0) {
+                for (int k = 0; k <= colDifference; k++) {
                     colsAffected[k] = colA - k;
                 }
             }
-            
+
             rowsAffected[0] = rowA;
-            if(fumigation.getRowDifference() > 0) {
-                for(int k = 0; k <= rowDifference; k++) {
+            if (fumigation.getRowDifference() > 0) {
+                for (int k = 0; k <= rowDifference; k++) {
                     rowsAffected[k] = rowA + k;
                 }
-            } else if(fumigation.getRowDifference() < 0) {
-                for(int k = 0; k <= rowDifference; k++) {
+            } else if (fumigation.getRowDifference() < 0) {
+                for (int k = 0; k <= rowDifference; k++) {
                     rowsAffected[k] = rowA - k;
                 }
             }
-            
-            for(int i = 0; i < cells.length; i++) {
-                for(int j = 0; j < cells[i].length; j++) {
+
+            for (int i = 0; i < cells.length; i++) {
+                for (int j = 0; j < cells[i].length; j++) {
                     FumigationCell cell = cells[i][j];
                     boolean isRowAffected = CollectionUtils.contains(rowsAffected, i);
                     boolean isColAffected = CollectionUtils.contains(colsAffected, j);
-                    if(isRowAffected && isColAffected) {
+                    if (isRowAffected && isColAffected) {
                         cell.quantity++;
                     }
                 }
             }
         }
-        
-        if(table != null) {
+
+        if (table != null) {
             table.repaint();
         }
     }
- 
+
 }

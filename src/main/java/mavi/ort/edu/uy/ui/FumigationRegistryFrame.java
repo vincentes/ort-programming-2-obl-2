@@ -31,15 +31,15 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
      */
     public FumigationRegistryFrame() {
         fumigation = FumigationSystem.getInstance();
-
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
+            System.out.println("'Windows look and feel' no se pudo cargar exitosamente");
         }
         setResizable(false);
         initComponents();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -171,29 +171,29 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
         Pilot pilot = (Pilot) pilotList.getSelectedItem();
         Technic technic = (Technic) technicList.getSelectedItem();
         Product product = (Product) productList.getSelectedItem();
-        if(pilot == null) {
+        if (pilot == null) {
             showMessageDialog(this, "Debe ingresar un piloto. Si no existen, debe registrar uno.");
             return;
-        } else if(technic == null) {
+        } else if (technic == null) {
             showMessageDialog(this, "Debe ingresar un técnico. Si no existen, debe registrar uno.");
             return;
-        } else if(product == null) {
+        } else if (product == null) {
             showMessageDialog(this, "Debe ingresar un producto. Si no existen, debe registrar uno.");
             return;
         }
-        
+
         String zone = zoneTxt.getText().toUpperCase();
         String dayStr = dayTxt.getText().trim();
-        if(!StringUtils.isPositiveNumber(dayStr)) {
+        if (!StringUtils.isPositiveNumber(dayStr)) {
             showMessageDialog(this, "Debe de ingresar un día con números postivos, del 1 al 30.");
             return;
         }
         int day = Integer.parseInt(dayStr);
-        if(!Fumigation.isValidZone(zone)) {
+        if (!Fumigation.isValidZone(zone)) {
             showMessageDialog(this, "El formato de la zona debe ser <Fila A>-<Columna A>-<Fila B>-<Columna B>. \nFilas permitidas: A, B, ..., M, N, O\nColumnas permitidas: 1,2,...50");
             return;
         }
-        
+
         fumigation.addFumigation(pilot, technic, product, day, zone);
         showMessageDialog(this, "Se ha registrado la fumigación exitosamente.");
     }//GEN-LAST:event_registerBtnActionPerformed

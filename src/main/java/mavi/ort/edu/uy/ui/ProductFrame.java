@@ -27,6 +27,7 @@ public class ProductFrame extends javax.swing.JFrame {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception ignored) {
+            System.out.println("'Windows look and feel' no se pudo cargar exitosamente");
         }
         setResizable(false);
         initComponents();
@@ -169,7 +170,7 @@ public class ProductFrame extends javax.swing.JFrame {
 
     private void createBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createBtnActionPerformed
         String name = nameTxt.getText();
-        if(name.isEmpty()) {
+        if (name.isEmpty()) {
             showMessageDialog(this, "Debe de ingresar un nombre no vacío.");
             return;
         }
@@ -177,7 +178,7 @@ public class ProductFrame extends javax.swing.JFrame {
         String costTxtVal = costTxt.getText();
         double cost;
 
-        if(StringUtils.isDouble(costTxtVal)) {
+        if (StringUtils.isDouble(costTxtVal)) {
             cost = Double.valueOf(costTxtVal);
         } else {
             showMessageDialog(this, "Debe de ingresar un costo decimal no vacío.");
@@ -186,7 +187,7 @@ public class ProductFrame extends javax.swing.JFrame {
 
         boolean isImported = importedRd.isSelected();
         ProductOrigin origin;
-        if(isImported) {
+        if (isImported) {
             origin = ProductOrigin.IMPORTED;
         } else {
             origin = ProductOrigin.NATIONAL;
@@ -202,7 +203,7 @@ public class ProductFrame extends javax.swing.JFrame {
         new InitialFrame().setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
 
-    /**     
+    /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
