@@ -255,6 +255,7 @@ public class PilotFrame extends javax.swing.JFrame {
                 ciTxt.setText("");
                 addressTxt.setText("");
                 yearsOfExperienceTxt.setText("");
+                showMessageDialog(this, "Piloto creado exitosamente");
                 pilotsList.setListData(fumigation.getPilotsAsStringArray());
             } else {
                 showMessageDialog(this, "El piloto con cédula " + ci + " ya ha sido ingresado");

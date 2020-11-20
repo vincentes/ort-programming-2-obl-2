@@ -5,6 +5,7 @@
  */
 package mavi.ort.edu.uy.ui;
 
+import java.awt.event.KeyEvent;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
@@ -81,6 +82,17 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
         productList.setModel(new DefaultComboBoxModel(fumigation.getProducts().toArray(Product[]::new)));
 
         jLabel5.setText("Zona");
+
+        dayTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dayTxtActionPerformed(evt);
+            }
+        });
+        dayTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dayTxtKeyTyped(evt);
+            }
+        });
 
         jLabel6.setText("Día");
 
@@ -197,6 +209,21 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
         fumigation.addFumigation(pilot, technic, product, day, zone);
         showMessageDialog(this, "Se ha registrado la fumigación exitosamente.");
     }//GEN-LAST:event_registerBtnActionPerformed
+
+    private void dayTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dayTxtActionPerformed
+
+    private void dayTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayTxtKeyTyped
+        // TODO add your handling code here:
+          // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+            showMessageDialog(null, "Solo el ingreso de números es permitido");
+        }
+
+    }//GEN-LAST:event_dayTxtKeyTyped
 
     /**
      * @param args the command line arguments

@@ -7,6 +7,7 @@ package mavi.ort.edu.uy.ui;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.IntStream;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.border.CompoundBorder;
@@ -306,6 +308,12 @@ public class QueryFrame extends javax.swing.JFrame {
 
         jLabel17.setText("Día");
 
+        dayField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                dayFieldKeyTyped(evt);
+            }
+        });
+
         filter.setText("Filtrar");
         filter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,6 +394,16 @@ public class QueryFrame extends javax.swing.JFrame {
 
         loadFumigations();
     }//GEN-LAST:event_filterActionPerformed
+
+    private void dayFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dayFieldKeyTyped
+        // TODO add your handling code here:
+          // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+            showMessageDialog(null, "Solo el ingreso de números es permitido");
+        }
+    }//GEN-LAST:event_dayFieldKeyTyped
 
     /**
      * @param args the command line arguments

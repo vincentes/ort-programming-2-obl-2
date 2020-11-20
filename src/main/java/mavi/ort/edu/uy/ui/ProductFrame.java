@@ -5,12 +5,13 @@
  */
 package mavi.ort.edu.uy.ui;
 
+import java.awt.event.KeyEvent;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.UIManager;
 import mavi.ort.edu.uy.models.FumigationSystem;
 import mavi.ort.edu.uy.models.ProductOrigin;
 import mavi.ort.edu.uy.utils.StringUtils;
 
-import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -67,6 +68,12 @@ public class ProductFrame extends javax.swing.JFrame {
         nameTxt.setToolTipText("Introduce el nombre del producto");
 
         jLabel2.setText("Costo");
+
+        costTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                costTxtKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Origen");
 
@@ -202,6 +209,17 @@ public class ProductFrame extends javax.swing.JFrame {
         this.setVisible(false);
         new InitialFrame().setVisible(true);
     }//GEN-LAST:event_cancelBtnActionPerformed
+
+    private void costTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_costTxtKeyTyped
+        // TODO add your handling code here:
+          // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || c == KeyEvent.VK_BACK_SPACE || c == KeyEvent.VK_DELETE)) {
+            evt.consume();
+            showMessageDialog(null, "Solo el ingreso de números es permitido");
+        }
+
+    }//GEN-LAST:event_costTxtKeyTyped
 
     /**
      * @param args the command line arguments

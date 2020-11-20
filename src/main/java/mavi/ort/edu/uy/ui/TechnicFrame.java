@@ -234,6 +234,7 @@ public class TechnicFrame extends javax.swing.JFrame {
         } else {
             if (!fumigation.doesTechnicExist(ciTxt.getText())) {
                 fumigation.addTechnic(nameTxt.getText(), ciTxt.getText(), emailTxt.getText());
+                showMessageDialog(this, "Técnico creado exitosamente");
                 technicsList.setListData(fumigation.getTechnicsAsStringArray());
                 nameTxt.setText("");
                 ciTxt.setText("");
