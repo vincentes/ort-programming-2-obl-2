@@ -198,6 +198,10 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
             showMessageDialog(this, "Debe de ingresar un día con números postivos, del 1 al 31.");
             return;
         }
+        if (Integer.parseInt(dayStr) < 1 || Integer.parseInt(dayStr) > 31) {
+            showMessageDialog(this, "Debe de ingresar un día con números postivos, del 1 al 31.");
+            return;
+        }
         int day = Integer.parseInt(dayStr);
         if (!Fumigation.isValidZone(zone)) {
             showMessageDialog(this, "El formato de la zona debe ser <Fila A>-<Columna A>-<Fila B>-<Columna B>. \nFilas permitidas: A, B, ..., M, N, O\nColumnas permitidas: 1,2,...50");
@@ -206,6 +210,8 @@ public class FumigationRegistryFrame extends javax.swing.JFrame {
 
         fumigation.addFumigation(pilot, technic, product, day, zone);
         showMessageDialog(this, "Se ha registrado la fumigación exitosamente.");
+        dayTxt.setText("");
+        zoneTxt.setText("");
     }//GEN-LAST:event_registerBtnActionPerformed
 
     private void dayTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dayTxtActionPerformed

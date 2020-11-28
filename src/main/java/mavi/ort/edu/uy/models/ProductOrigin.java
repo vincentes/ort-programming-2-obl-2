@@ -12,8 +12,8 @@ import java.io.Serializable;
  * @author Vicente Bermúdez, Matías Sallé
  */
 public enum ProductOrigin implements Serializable {
-    NATIONAL("NATIONAL"),
-    IMPORTED("IMPORTED");
+    NATIONAL("NACIONAL"),
+    IMPORTED("IMPORTADO");
 
     private String name;
 

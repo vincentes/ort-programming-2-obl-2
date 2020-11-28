@@ -77,6 +77,6 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%d [%s] %s $%4.2f", this.id, this.origin, this.name, this.cost);
+        return String.format("%d [%s] %s $%4.2f", this.id, this.origin.getName(), this.name, this.cost);
     }
 }

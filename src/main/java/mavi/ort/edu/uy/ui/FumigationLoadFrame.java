@@ -242,7 +242,7 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
                     String zone = strCurrentLine.toUpperCase();
                     if (!Fumigation.isValidZone(zone)) {
                         try ( FileWriter writer = new FileWriter("ERRORES.txt", true);  BufferedWriter bw = new BufferedWriter(writer)) {
-                            bw.write(zone+"\n");
+                            bw.write(zone + "\n");
                             bw.close();
                         } catch (IOException e) {
                             System.err.format("IOException: %s%n", e);
@@ -256,6 +256,8 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
                 contador++;
             }
             originalFile.close();
+            showMessageDialog(this, "Se ha registrado la fumigación exitosamente.");
+            dayTxt.setText("");
         } catch (IOException ex) {
             Logger.getLogger(FumigationLoadFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
