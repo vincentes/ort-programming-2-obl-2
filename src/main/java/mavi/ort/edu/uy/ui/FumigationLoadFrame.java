@@ -7,8 +7,10 @@ package mavi.ort.edu.uy.ui;
 
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -239,10 +241,15 @@ public class FumigationLoadFrame extends javax.swing.JFrame {
                 } else {
                     String zone = strCurrentLine.toUpperCase();
                     if (!Fumigation.isValidZone(zone)) {
-                        System.out.println("to add: log on ERRORES.txt");
-                        return;
+                        try ( FileWriter writer = new FileWriter("ERRORES.txt", true);  BufferedWriter bw = new BufferedWriter(writer)) {
+                            bw.write(zone+"\n");
+                        } catch (IOException e) {
+                            System.err.format("IOException: %s%n", e);
+                        }
+                    } else {
+                        fumigation.addFumigation(pilot, technic, product, Integer.parseInt(day), zone);
                     }
-                    fumigation.addFumigation(pilot, technic, product, Integer.parseInt(day), zone);
+
                 }
 
                 contador++;
